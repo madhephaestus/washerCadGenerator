@@ -9,10 +9,12 @@ CSG generate(){
 
 	def odValue = measurments.od
 	def idValue = measurments.id
+	def thicknessValue = measurments.thickness
 	println "Measurment odValue =  "+odValue
 	println "Measurment idValue =  "+idValue
 	// Stub of a CAD object
-	CSG part = new Cube().toCSG()
+	CSG part = new Cylinder(odValue/2,thicknessValue).toCSG()
+				.difference(new Cylinder(idValue/2,thicknessValue).toCSG())
 	return part
 		.setParameter(size)
 		.setRegenerate({generate()})
